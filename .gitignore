@@ -16,3 +16,7 @@ docs/
 
 # Cursor rules
 .cursor/
+
+# Ignore broadcast and lib directories
+broadcast/
+lib/
