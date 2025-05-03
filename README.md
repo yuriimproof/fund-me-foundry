@@ -1,66 +1,93 @@
-## Foundry
+# FundMe Smart Contract
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A crowdfunding smart contract built with Solidity and Foundry that allows users to fund a project and the owner to withdraw the funds.
 
-Foundry consists of:
+## Features
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- Users can fund the contract with ETH
+- Minimum funding amount in USD (using Chainlink price feeds)
+- Only the owner can withdraw funds
+- Automatic USD/ETH conversion using Chainlink Oracle
 
-## Documentation
+## Contract Deployments
 
-https://book.getfoundry.sh/
+- Sepolia Testnet: [0xa8A7896FA44120618B2638616361C24Faf16A30d](https://sepolia.etherscan.io/address/0xa8a7896fa44120618b2638616361c24faf16a30d)
 
-## Usage
+## Getting Started
 
-### Build
+### Prerequisites
 
+- [Foundry](https://book.getfoundry.sh/getting-started/installation)
+- [Git](https://git-scm.com/)
+
+### Installation
+
+1. Clone the repository
 ```shell
-$ forge build
+git clone https://github.com/your-username/fund-me-foundry.git
+cd fund-me-foundry
 ```
 
-### Test
-
+2. Install dependencies
 ```shell
-$ forge test
+forge install
 ```
 
-### Format
-
+3. Build the project
 ```shell
-$ forge fmt
+forge build
 ```
 
-### Gas Snapshots
+### Testing
 
 ```shell
-$ forge snapshot
+forge test
 ```
 
-### Anvil
+### Deployment
 
+#### Local Deployment (Anvil)
 ```shell
-$ anvil
+# Start local node
+make anvil
+
+# In a separate terminal
+make deploy
 ```
 
-### Deploy
+#### Testnet Deployment (Sepolia)
+1. Set up environment variables in `.env`:
+```
+SEPOLIA_RPC_URL=your_rpc_url
+PRIVATE_KEY=your_private_key
+ETHERSCAN_API_KEY=your_etherscan_api_key
+```
 
+2. Deploy to Sepolia:
 ```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+make deploy-sepolia
 ```
 
-### Cast
+### Interacting with the Contract
 
+#### Fund the Contract
 ```shell
-$ cast <subcommand>
+make fund
 ```
 
-### Help
-
+#### Withdraw Funds (Owner only)
 ```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+make withdraw
 ```
+
+## Contract ABI
+
+Generate the contract ABI:
+```shell
+mkdir -p abi
+forge inspect src/FundMe.sol:FundMe abi --json > abi/FundMe.json
+```
+
+## License
+
+MIT
