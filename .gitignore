@@ -20,3 +20,6 @@ docs/
 # Ignore broadcast and lib directories
 broadcast/
 lib/
+
+# Keep abi directory but ignore JSON files
+abi/*.json
